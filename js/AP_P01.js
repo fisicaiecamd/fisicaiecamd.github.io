@@ -1,28 +1,32 @@
 let aprendizaje;
 let evidencia;
 
+
 window.addEventListener("load", () => {
-    tabla_periodo();
+    sessionStorage.removeItem("index");
+    tabla_periodo(sessionStorage.getItem("periodo"));
 });
 
-async function tabla_periodo(grado) {
-    const result = await fetch(Url + "?func=periodo&grado=" + sessionStorage.getItem("grado"));
-    if (result.ok) {
-        aprendizaje = await result.json();
-        console.log(aprendizaje);
-    }
-    console.log("ya paso");
-    const evid = await fetch(Url + "?func=evidencia&grado=" + sessionStorage.getItem("grado"));
-    if (evid.ok) {
-        evidencia = await evid.json();
-        console.log(evidencia);
-        document.getElementById("spiner").classList.add("d-none");
-        document.getElementById("vista_ap").classList.remove("d-none");
-        vistasAprendizajes();
+async function tabla_periodo(periodo) {
+    try {
+        const result = await fetch(Url + "?func=periodo&grado=" + periodo);
+        if (result.ok) {
+            aprendizaje = await result.json();
+        }
+        document.getElementById("msgEspera").innerHTML = "¡Consultando Evidencias!";
+        const evid = await fetch(Url + "?func=evidencia&grado=" + periodo);
+        if (evid.ok) {
+            evidencia = await evid.json();
+            document.getElementById("spiner").classList.add("d-none");
+            document.getElementById("vista_ap").classList.remove("d-none");
+            vistasAprendizajes(periodo);
+        }
+    } catch (e) {
+        console.log(e.message);
     }
 }
 
-function vistasAprendizajes() {
+async function vistasAprendizajes(periodo) {
     let AP = document.getElementById("vista_ap");
     let sam = 0;
     for (let i = 0; i < aprendizaje.length; i++) {
@@ -54,6 +58,15 @@ function vistasAprendizajes() {
               </a>
           </p>
             `;
+            sam += 1;
         }
     }
+
+    const btnActividades = document.querySelectorAll(".act");
+    btnActividades.forEach((element) => {
+        element.addEventListener("click", async () => {
+            sessionStorage.setItem("index", element.id);
+            window.location.href ="actividades.html";
+        });
+    });
 }

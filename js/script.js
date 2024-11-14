@@ -21,10 +21,10 @@ async function listarEstudiante(id) {
             loadding.classList.add("d-none");
             init.classList.remove("disabled");
             if (data.grado != undefined && data.nombre != undefined && data.id != undefined) {
+                sessionStorage.clear();
                 sessionStorage.setItem("grado", data.grado);
                 sessionStorage.setItem("id", data.id);
                 sessionStorage.setItem("nombre", data.nombre);
-                console.log("Navega a otra pagina");
                 window.location.href = "principal.html";
             }
         }

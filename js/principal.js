@@ -8,19 +8,25 @@ window.addEventListener("load", () => {
 });
 
 function inicio() {
+    sessionStorage.removeItem("periodo");
     window.location.href = "principal.html";
 }
 
 async function primer_periodo() {
-     window.location.href = "primer_periodo.html";
+    sessionStorage.setItem("periodo", sessionStorage.getItem("grado"));
+    window.location.href = "primer_periodo.html";
 }
 
 async function segundo_periodo() {
-    window.location.href = "segundo_periodo.html";
+    sessionStorage.setItem("periodo", sessionStorage.getItem("grado")+"-2");
+    window.location.href = "primer_periodo.html";
 }
 
 async function tercer_periodo() {
-    window.location.href = "tercer_periodo.html";
+    sessionStorage.setItem("periodo", sessionStorage.getItem("grado")+"-3");
+    window.location.href = "primer_periodo.html";
 }
 
-
+async function actividades(){
+    window.location.href ="actividades.html";
+}
