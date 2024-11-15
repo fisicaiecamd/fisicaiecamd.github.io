@@ -13,7 +13,7 @@ async function tabla_periodo(periodo) {
         if (result.ok) {
             aprendizaje = await result.json();
         }
-        document.getElementById("msgEspera").innerHTML = "¡Consultando Evidencias!";
+        document.getElementById("msgEspera").innerHTML = "¡Buscando Evidencias!";
         const evid = await fetch(Url + "?func=evidencia&grado=" + periodo);
         if (evid.ok) {
             evidencia = await evid.json();

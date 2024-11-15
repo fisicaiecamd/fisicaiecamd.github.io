@@ -1,5 +1,4 @@
 window.addEventListener("load", () => {
-    document.getElementById("viewVal").classList.add("d-none");
     tableAct();
 });
 
@@ -57,7 +56,6 @@ async function tableAct() {
         ) {
             let td = document.getElementById("nt" + e);
             td.classList.add("text-danger");
-            document.getElementById("emoji").classList.add("text-dager");
         }
     }
     

@@ -32,6 +32,6 @@ async function listarEstudiante(id) {
         console.log("Error " + e.message);
         loadding.classList.add("d-none");
         init.classList.remove("disabled");
-        msg.innerHTML = "Docuemnto invalido";
+        msg.innerHTML = "Documento invalido";
     }
 }
