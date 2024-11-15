@@ -11,16 +11,13 @@ async function tableAct() {
     const act = await fetch(Url + "?func=actividades&periodo=" + sessionStorage.getItem("periodo"));
     if (act.ok) {
         actividad = await act.json();
-        console.log(actividad);
     }
     document.getElementById("msgEspera").innerHTML = "¡Descargando estado de actividades!";
     const estado = await fetch(
         Url + "?func=estado&id=" + sessionStorage.getItem("id") + "&periodo=" + sessionStorage.getItem("periodo")
     );
     if (estado.ok) {
-        console.log("?func=estado&id=" + sessionStorage.getItem("id") + "&periodo=" + sessionStorage.getItem("periodo"));
         estado_actividad = await estado.json();
-        console.log(estado_actividad);
     }
     document.getElementById("msgEspera").innerHTML = "¡Buscando Valoraciones!";
     const valoracion = await fetch(
@@ -28,7 +25,6 @@ async function tableAct() {
     );
     if (valoracion.ok) {
         valoracion_final = await valoracion.json();
-        console.log(valoracion_final);
     }
     document.getElementById("spiner").classList.add("d-none");
     document.getElementById("tabla").classList.remove("d-none");
