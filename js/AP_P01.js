@@ -51,16 +51,11 @@ async function vistasAprendizajes(periodo) {
         let EV = document.getElementById("evidencias" + i);
         for (let j = 0; j < evidencia[i].length; j++) {
             EV.innerHTML += `
-            <p>
-              <a href="#" id="${sam}" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover act">
-                ${evidencia[i][j]}
-              </a>
-          </p>
           <p>
               <button class="btn btn-link text-decoration-none link-success act" id="${sam}">
                  ${evidencia[i][j]}
-            </button>
-          </>
+              </button>
+          <p/>
           
             `;
             sam += 1;
@@ -75,3 +70,14 @@ async function vistasAprendizajes(periodo) {
         });
     });
 }
+
+/*
+<p>
+    <a
+        href="#"
+        id="${sam}"
+        class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover act">
+        ${evidencia[i][j]}
+    </a>
+</p>
+*/
