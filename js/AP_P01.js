@@ -1,7 +1,6 @@
 let aprendizaje;
 let evidencia;
 
-
 window.addEventListener("load", () => {
     sessionStorage.removeItem("index");
     tabla_periodo(sessionStorage.getItem("periodo"));
@@ -57,6 +56,12 @@ async function vistasAprendizajes(periodo) {
                 ${evidencia[i][j]}
               </a>
           </p>
+          <p>
+              <button class="btn btn-link text-decoration-none link-success act" id="${sam}">
+                 ${evidencia[i][j]}
+            </button>
+          </>
+          
             `;
             sam += 1;
         }
@@ -66,7 +71,7 @@ async function vistasAprendizajes(periodo) {
     btnActividades.forEach((element) => {
         element.addEventListener("click", async () => {
             sessionStorage.setItem("index", element.id);
-            window.location.href ="actividades.html";
+            window.location.href = "actividades.html";
         });
     });
 }
