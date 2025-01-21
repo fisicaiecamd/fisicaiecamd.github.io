@@ -8,22 +8,26 @@ window.addEventListener("load", () => {
 
 async function tabla_periodo(periodo) {
     try {
-        const result = await fetch(Url + "?func=periodo&grado=" + periodo);
+        const result = await fetch(`${Url}?func=periodo&grado=${periodo}`);
         if (result.ok) {
             aprendizaje = await result.json();
         }
+
         document.getElementById("msgEspera").innerHTML = "¡Buscando Evidencias!";
-        const evid = await fetch(Url + "?func=evidencia&grado=" + periodo);
+        
+        const evid = await fetch(`${Url}?func=evidencia&grado=${periodo}`);
         if (evid.ok) {
             evidencia = await evid.json();
+            
             document.getElementById("spiner").classList.add("d-none");
             document.getElementById("vista_ap").classList.remove("d-none");
             vistasAprendizajes(periodo);
         }
     } catch (e) {
-        console.log(e.message);
+        console.error("Error:", e.message);
     }
 }
+
 
 async function vistasAprendizajes(periodo) {
     let AP = document.getElementById("vista_ap");
