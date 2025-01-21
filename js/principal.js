@@ -1,5 +1,5 @@
 const Url =
-    "https://script.google.com/macros/s/AKfycbydTOv6aVnMyu_nI2rrbX9Ys3xkdJI6On5yui86NBEXwDnGCxBhhcPVuTZLMJrEN1QIAQ/exec";
+    "https://script.google.com/macros/s/AKfycbzFKQkCe2LEcpVAWeFAThoiy91WduesBhMTLlneGaHNhzW1GIKesfuKIIdgkq4hli8c/exec";
 
 window.addEventListener("load", () => {
     if (sessionStorage.getItem("nombre")) {
