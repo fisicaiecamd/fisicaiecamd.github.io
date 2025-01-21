@@ -8,25 +8,38 @@ window.addEventListener("load", () => {
 
 async function tabla_periodo(periodo) {
     try {
+        // Realiza la primera consulta
         const result = await fetch(`${Url}?func=periodo&grado=${periodo}`);
-        if (result.ok) {
-            aprendizaje = await result.json();
+        if (!result.ok) {
+            throw new Error("Error al obtener datos de aprendizaje");
         }
-
+        aprendizaje = await result.json();
+        
+        // Muestra un mensaje mientras busca evidencias
         document.getElementById("msgEspera").innerHTML = "¡Buscando Evidencias!";
         
+        // Realiza la segunda consulta
         const evid = await fetch(`${Url}?func=evidencia&grado=${periodo}`);
-        if (evid.ok) {
-            evidencia = await evid.json();
-            
-            document.getElementById("spiner").classList.add("d-none");
-            document.getElementById("vista_ap").classList.remove("d-none");
-            vistasAprendizajes(periodo);
+        if (!evid.ok) {
+            throw new Error("Error al obtener evidencias");
         }
-    } catch (e) {
-        console.error("Error:", e.message);
+        evidencia = await evid.json();
+        
+        // Actualiza el DOM
+        document.getElementById("spiner").classList.add("d-none");
+        document.getElementById("vista_ap").classList.remove("d-none");
+        vistasAprendizajes(periodo);
+    } catch (error) {
+        console.error("Error:", error.message);
+        msg.innerHTML = "Ocurrió un error: " + error.message;
+        
+        // Asegura que los elementos del DOM se actualicen en caso de error
+        document.getElementById("spiner").classList.add("d-none");
+        document.getElementById("vista_ap").classList.add("d-none");
+        document.getElementById("msgEspera").innerHTML = "Error en la solicitud, intente nuevamente.";
     }
 }
+
 
 
 async function vistasAprendizajes(periodo) {
@@ -74,14 +87,3 @@ async function vistasAprendizajes(periodo) {
         });
     });
 }
-
-/*
-<p>
-    <a
-        href="#"
-        id="${sam}"
-        class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover act">
-        ${evidencia[i][j]}
-    </a>
-</p>
-*/
