@@ -4,15 +4,15 @@ window.addEventListener("load", () => {
     history.pushState(null, null, window.location.href);
 });
 
-window.addEventListener("popstate", function(event) {
-    // Manejar la acción del botón de retroceso aquí
-    if (confirm("¿Estás seguro de que deseas salir?")) {
-        window.history.back();
-    } else {
-        // Evitar la acción de retroceso del navegador
-        history.pushState(null, null, window.location.href);
-    }
-});
+// window.addEventListener("popstate", function(event) {
+//     // Manejar la acción del botón de retroceso aquí
+//     if (confirm("¿Estás seguro de que deseas salir?")) {
+//         window.history.back();
+//     } else {
+//         // Evitar la acción de retroceso del navegador
+//         history.pushState(null, null, window.location.href);
+//     }
+// });
 
 let actividad;
 let estado_actividad;
