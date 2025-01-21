@@ -13,30 +13,33 @@ init.addEventListener("click", (e) => {
 });
 
 async function listarEstudiante(id) {
-    let data;
     try {
-        const result = await fetch(Url + "?func=buscar&id=" + id);
-        if (result.ok) {
-            data = await result.json();
-            loadding.classList.add("d-none");
-            init.classList.remove("disabled");
-            
-            // Verifica si los datos esperados están presentes
-            if (data.grado != undefined && data.nombre != undefined && data.id != undefined) {
-                sessionStorage.clear();
-                sessionStorage.setItem("grado", data.grado);
-                sessionStorage.setItem("id", data.id);
-                sessionStorage.setItem("nombre", data.nombre);
-                window.location.href = "principal.html";
-            } else {
-                // Si los datos no están presentes, muestra un mensaje de error
-                msg.innerHTML = "El estudiante no existe en la base de datos";
-            }
-        }
-    } catch (e) {
-        console.log("Error " + e.message);
+        loadding.classList.remove("d-none");
+        init.classList.add("disabled");
+
+        const result = await fetch(`${Url}?func=buscar&id=${id}`);
         loadding.classList.add("d-none");
         init.classList.remove("disabled");
-        msg.innerHTML = e.message;
+
+        if (!result.ok) {
+            throw new Error("Error en la solicitud");
+        }
+
+        const data = await result.json();
+
+        if (data.grado && data.nombre && data.id) {
+            sessionStorage.clear();
+            sessionStorage.setItem("grado", data.grado);
+            sessionStorage.setItem("id", data.id);
+            sessionStorage.setItem("nombre", data.nombre);
+            window.location.href = "principal.html";
+        } else {
+            msg.innerHTML = "El estudiante no existe en la base de datos";
+        }
+    } catch (error) {
+        loadding.classList.add("d-none");
+        init.classList.remove("disabled");
+        msg.innerHTML = error.message === "Error en la solicitud" ? "Documento inválido" : error.message;
+        console.log("Error:", error.message);
     }
 }
