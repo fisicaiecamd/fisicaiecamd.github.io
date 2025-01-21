@@ -1,5 +1,17 @@
 window.addEventListener("load", () => {
     tableAct();
+    // Empujar el estado inicial al historial para controlar el retroceso
+    history.pushState(null, null, window.location.href);
+});
+
+window.addEventListener("popstate", function(event) {
+    // Manejar la acción del botón de retroceso aquí
+    if (confirm("¿Estás seguro de que deseas salir?")) {
+        window.history.back();
+    } else {
+        // Evitar la acción de retroceso del navegador
+        history.pushState(null, null, window.location.href);
+    }
 });
 
 let actividad;
@@ -12,21 +24,21 @@ async function tableAct() {
         if (!actResponse.ok) {
             throw new Error("Error al obtener actividades");
         }
-        const actividad = await actResponse.json();
+        actividad = await actResponse.json();
 
         document.getElementById("msgEspera").innerHTML = "¡Descargando estado de actividades!";
         const estadoResponse = await fetch(`${Url}?func=estado&id=${sessionStorage.getItem("id")}&periodo=${sessionStorage.getItem("periodo")}`);
         if (!estadoResponse.ok) {
             throw new Error("Error al obtener el estado de las actividades");
         }
-        const estado_actividad = await estadoResponse.json();
+        estado_actividad = await estadoResponse.json();
 
         document.getElementById("msgEspera").innerHTML = "¡Buscando Valoraciones!";
         const valoracionResponse = await fetch(`${Url}?func=valoracion&id=${sessionStorage.getItem("id")}&periodo=${sessionStorage.getItem("periodo")}`);
         if (!valoracionResponse.ok) {
             throw new Error("Error al obtener valoraciones");
         }
-        const valoracion_final = await valoracionResponse.json();
+        valoracion_final = await valoracionResponse.json();
 
         document.getElementById("spiner").classList.add("d-none");
         document.getElementById("tabla").classList.remove("d-none");
